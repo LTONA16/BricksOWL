@@ -10,7 +10,7 @@ import java.awt.image.BufferStrategy;
  * Ventana principal de la aplicación, esta ventana es responsable de mostrar el contenido del juego y manejar los
  * eventos relacionados con la entrada y salida.
  *
- * @author Aguilera Luzania José Luis.
+ * @author 
  */
 public class Display extends JFrame {
 

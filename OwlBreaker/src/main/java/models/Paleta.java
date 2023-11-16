@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package models;
+import java.awt.Color;
 
 /**
  *
@@ -14,13 +15,15 @@ public class Paleta {
     private int X;
     private int Y;
     private int vel;
+    private Color colorPaleta;
     
-    public Paleta(int largo, int ancho, int X, int Y, int vel){
+     public Paleta(int largo, int ancho, int X, int Y, int vel, Color colorPaleta){
         this.largo = largo;
         this.ancho = ancho;
         this.X = X;
         this.Y = Y;
         this.vel = vel;
+        this.colorPaleta = colorPaleta;
     }
     
     public int getLargo(){
@@ -43,6 +46,10 @@ public class Paleta {
         return vel;
     }
     
+    public Color getColor(){
+        return colorPaleta;
+    }
+    
     public void setLargo(int nLargo){
         this.largo = nLargo;
     }
@@ -62,4 +69,9 @@ public class Paleta {
     public void setVel(int nVel){
         this.vel = nVel;
     }
+    
+    public void setColor(Color nColor){
+        this.colorPaleta = nColor;
+    }
+    
 }

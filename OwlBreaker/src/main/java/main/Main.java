@@ -6,7 +6,7 @@ import game.MainGame;
 /**
  * Incluya una descripción de su juego.
  *
- * @author Aguilera Luzania José Luis.
+ * @author 
  */
 public class Main {
 

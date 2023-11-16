@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package models;
-
+import java.awt.Color;
 /**
  *
  * @author luisi
@@ -16,8 +16,9 @@ public class Pelota {
     private int radio;
     private int velX;
     private int velY;
+    private Color colorPelota;
     
-    public Pelota(int largo, int ancho, int X, int Y, int radio, int velX,int velY){
+     public Pelota(int largo, int ancho, int X, int Y, int radio, int velX,int velY, Color colorPelota){
         this.largo = largo;
         this.ancho = ancho;
         this.X = X;
@@ -25,6 +26,7 @@ public class Pelota {
         this.radio = radio;
         this.velX = velX;
         this.velY = velY;
+        this.colorPelota = colorPelota;
     }
     
     public int getLargo(){
@@ -55,6 +57,10 @@ public class Pelota {
         return radio;
     }
     
+    public Color getColor(){
+        return colorPelota;
+    }
+    
     public void setLargo(int nLargo){
         this.largo = nLargo;
     }
@@ -81,6 +87,10 @@ public class Pelota {
     
     public void setVelY(int nVelY){
         this.velY = nVelY;
+    }
+    
+    public void setColor(Color nColor){
+        this.colorPelota = nColor;
     }
     
     

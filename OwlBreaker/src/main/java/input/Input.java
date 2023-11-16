@@ -7,7 +7,7 @@ import java.awt.event.KeyListener;
  * Se encarga de manejar el estado de las teclas del teclado. Solo existe una única instancia de la clase que
  * puede ser accedida desde cualquier parte de la aplicación.
  *
- * @author Aguilera Luzania José Luis.
+ * @author 
  */
 public final class Input implements KeyListener {
 
