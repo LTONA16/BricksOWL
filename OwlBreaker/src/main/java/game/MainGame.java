@@ -20,7 +20,7 @@ public class MainGame extends BaseGame {
     private final int DISPLAY_WIDTH = 1024;
     private final int DISPLAY_HEIGHT = 640;
     private int vidas;
-    private Pelota pelota= new Pelota(5,5,0,0,3,0,0,Color.WHITE);
+    private Pelota pelota= new Pelota(5,5,150,150,15,2,2,Color.WHITE);
     private Paleta paleta = new Paleta(25,150,0,0,0,Color.WHITE);
     private Ladrillo[][] ladrillos;
 
@@ -48,8 +48,7 @@ public class MainGame extends BaseGame {
         Display display = Display.getInstance();
         paleta.setX(display.getWidth()/2);
         paleta.setY(600);
-        pelota.setX(display.getWidth());
-        pelota.setY(610);
+       
         
     }
         
@@ -72,6 +71,7 @@ public class MainGame extends BaseGame {
         if (Input.getInstance().isPressed(KeyEvent.VK_D)) {
             movePaletaRight();
         }
+        
 
         render();
     }
@@ -181,6 +181,10 @@ public class MainGame extends BaseGame {
        
         g.setColor(Color.WHITE);
         g.fillRect(paleta.getX(), paleta.getY(), paleta.getAncho(), paleta.getLargo());
+        g.setColor(Color.WHITE);
+        g.fillOval(pelota.getX() - pelota.getRadio(), pelota.getY() - pelota.getRadio(),pelota.getRadio()* 2, pelota.getRadio()* 2);
+
+        
         //g.fillRect(500, 500, 100, 50);
         
         
