@@ -16,6 +16,7 @@ public class Pelota {
     private int radio;
     private int velX;
     private int velY;
+    private int vel = 5;
     private Color colorPelota;
     
      public Pelota(int largo, int ancho, int X, int Y, int radio, int velX,int velY, Color colorPelota){
@@ -53,6 +54,10 @@ public class Pelota {
         return velY;
     }
     
+    public int getVel(){
+        return vel;
+    }
+    
     public int getRadio(){
         return radio;
     }
@@ -87,6 +92,10 @@ public class Pelota {
     
     public void setVelY(int nVelY){
         this.velY = nVelY;
+    }
+    
+    public void setVel(int nVel){
+        this.vel = nVel;
     }
     
     public void setColor(Color nColor){
