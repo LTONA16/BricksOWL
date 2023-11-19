@@ -12,6 +12,7 @@ public class Ladrillo {
     private int largo;
     private int ancho;
     private int vida;
+    private int ladrillos;
     private int vidaMax = 3;
     private Color colorLadrillo;
     

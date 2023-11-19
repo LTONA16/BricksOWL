@@ -11,7 +11,7 @@ public abstract class BaseGame {
     /**
      * Velocidad a la que el contenido del juego se debe actualizar.
      */
-    private final double UPDATE_RATE = 1.0d / 60.0d;
+    private final double UPDATE_RATE = 1.0d / 144.0d;
 
     /**
      * Bandera que permite saber si el GameLoop se está ejecutando.
