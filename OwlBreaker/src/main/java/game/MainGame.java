@@ -73,6 +73,10 @@ public class MainGame extends BaseGame {
         }
         
 
+         pelota.mover();
+         
+        verificarColision(1024, 640, paleta);
+
         render();
     }
 
@@ -118,26 +122,7 @@ public class MainGame extends BaseGame {
         
     }
     
-//    public void moveRight (){
-//        paleta.setX(paleta.getX() + 20); 
-//    }
-//    public void moveLeft (){
-//        paleta.setX(paleta.getX() - 20); 
-////    }
-//    public void keyPressed(KeyEvent e) {
-//        int keyCode = e.getKeyCode();
-//
-//        // Mover el rectángulo a la izquierda
-//        if (keyCode == KeyEvent.VK_LEFT) {
-//            paleta.setX();
-//        }
-//        // Mover el rectángulo a la derecha
-//        else if (keyCode == KeyEvent.VK_RIGHT) {
-//            rectanguloX += 5;
-//        }
-//
-//        repaint();
-//    }
+
     private void movePaletaLeft() {
         paleta.setX(paleta.getX() - 5); // Puedes ajustar la cantidad de movimiento según tus necesidades
     }
@@ -153,6 +138,22 @@ public class MainGame extends BaseGame {
     public void keyReleased(KeyEvent e) {
         // No es necesario implementar este método, pero la interfaz lo exige
     }
+   
+   public void verificarColision(int anchoPantalla, int altoPantalla, Paleta paleta) {
+        // Colision con las paredes
+        if (pelota.getX() - pelota.getRadio() <= 0 || pelota.getX() + pelota.getRadio() >= anchoPantalla) {
+            pelota.setVelX(-pelota.getVelX()); // Invertir la dirección en el eje X
+        }
+        if (pelota.getY() - pelota.getRadio() <= 0 || pelota.getY() + pelota.getRadio() >= altoPantalla) {
+            pelota.setVelY(-pelota.getVelY()); // Invertir la dirección en el eje Y
+        }
+
+        // Colision con la paleta
+        if (pelota.getY() + pelota.getRadio() >= paleta.getY() && pelota.getX() >= paleta.getX() && pelota.getX() <= paleta.getX() + paleta.getAncho()) {
+            pelota.setVelY(-pelota.getVelY()); // Invertir la dirección en el eje Y
+        }
+    }
+
 
     /**
      * Maneja el renderizado del juego en la ventana, es invocado al menos una vez por segundo.

@@ -74,4 +74,6 @@ public class Paleta {
         this.colorPaleta = nColor;
     }
     
+    
+    
 }

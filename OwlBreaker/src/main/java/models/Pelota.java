@@ -93,5 +93,10 @@ public class Pelota {
         this.colorPelota = nColor;
     }
     
+     public void mover() {
+        setX(getX() + getVelX());
+        setY(getY() + getVelY());
+    }
+    
     
 }
