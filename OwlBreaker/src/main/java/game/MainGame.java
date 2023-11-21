@@ -151,7 +151,7 @@ public class MainGame extends BaseGame {
                 ladrillos[i][j] = new Ladrillo(0, 0, 3, 3, Color.GREEN); // Puedes ajustar las dimensiones y color
                 ladrillos[i][j].setLargo(40);
                 ladrillos[i][j].setAncho(1020/columna - gap);
-                ladrillos[i][j].setX( j * ladrillos[i][j].getAncho() + gap);
+                ladrillos[i][j].setX(3 + j * ladrillos[i][j].getAncho() + gap);
                 ladrillos[i][j].setY(i * ladrillos[i][j].getLargo() + gap);
                 System.out.println(ladrillos[i][j].getX());
                    //ladrillos[i][j].getLargo(), ladrillos[i][j].getAncho()
@@ -215,11 +215,6 @@ public class MainGame extends BaseGame {
         // TODO: Dibuje los elementos de su aplicación aquí.
         g.setColor(Color.black);
         g.fillRect(1, 1, display.getWidth(), display.getHeight());
-        g.setColor(Color.CYAN);
-        g.fillRect(0, 0, 3, (display.getHeight() ));
-        g.fillRect(0, 0, (display.getWidth() ), 3);
-        g.fillRect(1021, 0, 3, display.getHeight());
-        //g.fillRect(0, 637, display.getWidth(),3 );
        
         g.setColor(Color.WHITE);
         g.fillRect(paleta.getX(), paleta.getY(), paleta.getAncho(), paleta.getLargo());
@@ -231,9 +226,14 @@ public class MainGame extends BaseGame {
             for (int j = 0; j < ladrillos[i].length; j++) {
                 int gap = 2;
                 g.setColor(ladrillos[i][j].getColor()); // Establece el color del ladrillo
-                g.fillRect(j * ladrillos[i][j].getAncho() + gap * j , i * ladrillos[i][j].getLargo() + gap * i, ladrillos[i][j].getAncho() , ladrillos[i][j].getLargo()); 
+                g.fillRect(3 + j * ladrillos[i][j].getAncho() + gap * j , i * ladrillos[i][j].getLargo() + gap * i, ladrillos[i][j].getAncho() , ladrillos[i][j].getLargo()); 
             }
         }
+        g.setColor(Color.CYAN);
+        g.fillRect(0, 0, 3, (display.getHeight() ));
+        g.fillRect(0, 0, (display.getWidth() ), 3);
+        g.fillRect(1021, 0, 3, display.getHeight());
+        //g.fillRect(0, 637, display.getWidth(),3 );
         
         // Actualizamos los gráficos y los mostramos en la ventana.
         display.renderGraphics();
