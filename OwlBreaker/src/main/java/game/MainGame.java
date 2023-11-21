@@ -89,8 +89,7 @@ public class MainGame extends BaseGame {
          pelota.mover();
          
         verificarColision(1024, 640, paleta);
-
-
+        
         pelota.setX(pelota.getX()+pelota.getVelX());
         pelota.setY(pelota.getY()+pelota.getVelY());
         colPelota();
@@ -133,7 +132,11 @@ public class MainGame extends BaseGame {
     
     //Colisión con de la pelota con el Bloque, resta vidas al bloque
     public void colPelotaBloque(){
-        
+//        if (pelota.getX() + 19 <= ladrillos[i][j].getX() || pelota.getX() + 1 >= ladrillos[i][j].getX() + ladrillos[i][j].getAncho()) {
+//            pelota.setVelX(-pelota.getVelX());
+//        } else {
+//            pelota.setVelY(-pelota.getVelY());
+//        }
     }
     
     public void pintarLadrillos(int fila, int columna){
