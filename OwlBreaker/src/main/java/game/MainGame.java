@@ -22,8 +22,7 @@ public class MainGame extends BaseGame {
     private int vidaJugador = 3;
     private Pelota pelota= new Pelota(5,5,150,150,15,2,5,Color.WHITE);
     private Paleta paleta = new Paleta(25,150,0,0,0,Color.WHITE);
-    private Ladrillo ladrillo;
-    private int[][] ladrillos;
+    private Ladrillo[][] ladrillos;
             
     /**
      * Incluya una descripción de su juego.
@@ -50,9 +49,11 @@ public class MainGame extends BaseGame {
         paleta.setY(600);
         pelota.setX(615);
         pelota.setY(615);
-        pelota.setVelY(-5);
+        pelota.setVelY(2);
        
         // Inicializa la matriz de ladrillos
+        ladrillos = new Ladrillo[5][5];
+        inicializarLadrillos();
         
     }
         
@@ -92,15 +93,7 @@ public class MainGame extends BaseGame {
 
         pelota.setX(pelota.getX()+pelota.getVelX());
         pelota.setY(pelota.getY()+pelota.getVelY());
-
-        if (pelota.getX() - pelota.getRadio() <= 0 || pelota.getX() + pelota.getRadio() >= DISPLAY_WIDTH) {
-            pelota.setVelX(-pelota.getVelX()); // Invertir la dirección en el eje X
-        }
-
-        if (pelota.getY() - pelota.getRadio() <= 0 || pelota.getY() + pelota.getRadio() >= DISPLAY_HEIGHT) {
-            pelota.setVelY(-pelota.getVelY()); // Invertir la dirección en el eje Y
-        }
-            
+        colPelota();
 
         render();
     }
@@ -128,6 +121,13 @@ public class MainGame extends BaseGame {
     
     //Colisión de la pelota
     public void colPelota(){
+        if (pelota.getX() - pelota.getRadio() <= 0 || pelota.getX() + pelota.getRadio() >= DISPLAY_WIDTH) {
+            pelota.setVelX(-pelota.getVelX()); // Invertir la dirección en el eje X
+        }
+
+        if (pelota.getY() - pelota.getRadio() <= 0 || pelota.getY() + pelota.getRadio() >= DISPLAY_HEIGHT) {
+            pelota.setVelY(-pelota.getVelY()); // Invertir la dirección en el eje Y
+        }
         
     }
     
@@ -135,22 +135,22 @@ public class MainGame extends BaseGame {
     public void colPelotaBloque(){
         
     }
-    //Genera ladrillos
-    public void generarLadrillos(int fila, int columna){
-        int gap = 2;
-        ladrillo.setLargo(20);
-        ladrillo.setAncho(DISPLAY_WIDTH/(columna - gap));
-        
-        for(int i=0; i<ladrillos.length;i++){
-            for(int j=0; i<ladrillos.length;j++){
-                ladrillos[i][j] = 1;
-            }
-        }
-    }
     
-    // 
     public void pintarLadrillos(int fila, int columna){
         
+    }
+    
+    private void inicializarLadrillos() {
+        // Inicializa el arreglo de ladrillos
+        for (int i = 0; i < ladrillos.length; i++) {
+            for (int j = 0; j < ladrillos[i].length; j++) {
+                int x = j * 100; // Puedes ajustar la posición y dimensiones según tus necesidades
+                int y = i * 40;
+                ladrillos[i][j] = new Ladrillo(40, 100, 3, 3, Color.GREEN); // Puedes ajustar las dimensiones y color
+                ladrillos[i][j].setX(x);
+                ladrillos[i][j].setY(y);
+            }
+        }
     }
     
     // Comprueba si existen ladrillos restantes, si no hay ladrillos el jugador gana la partida
@@ -220,6 +220,14 @@ public class MainGame extends BaseGame {
         g.setColor(Color.WHITE);
         g.fillOval(pelota.getX() - pelota.getRadio(), pelota.getY() - pelota.getRadio(),pelota.getRadio()* 2, pelota.getRadio()* 2);
 
+         // Dibuja los ladrillos
+        for (int i = 0; i < ladrillos.length; i++) {
+            for (int j = 0; j < ladrillos[i].length; j++) {
+                g.setColor(ladrillos[i][j].getColor()); // Establece el color del ladrillo
+                g.fillRect(ladrillos[i][j].getX(), ladrillos[i][j].getY(),
+                            ladrillos[i][j].getAncho(), ladrillos[i][j].getLargo());
+            }
+        }
         
         // Actualizamos los gráficos y los mostramos en la ventana.
         display.renderGraphics();

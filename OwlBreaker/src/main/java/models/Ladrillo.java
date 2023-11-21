@@ -15,6 +15,10 @@ public class Ladrillo {
     private int ladrillos;
     private int vidaMax = 3;
     private Color colorLadrillo;
+    private int x;
+    private int y;
+
+
     
      public Ladrillo(int largo, int ancho, int vida, int vidaMax, Color colorLadrillo){
         this.largo = largo;
@@ -22,10 +26,19 @@ public class Ladrillo {
         this.vida = vida;
         this.vidaMax = vidaMax;
         this.colorLadrillo = colorLadrillo;
+        
     }
     
     public int getLargo(){
         return largo;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
     
     public int getAncho(){
@@ -62,6 +75,14 @@ public class Ladrillo {
     
     public void setVidaMax(int nVidaMax){
         this.vidaMax = nVidaMax;
+    }
+    
+        public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
     
     
