@@ -23,6 +23,7 @@ public class MainGame extends BaseGame {
     private Pelota pelota= new Pelota(5,5,150,150,15,2,5,Color.WHITE);
     private Paleta paleta = new Paleta(25,150,0,0,0,Color.WHITE);
     private Ladrillo[][] ladrillos;
+    private int columna, fila=0;
             
     /**
      * Incluya una descripción de su juego.
@@ -52,8 +53,7 @@ public class MainGame extends BaseGame {
         pelota.setVelY(2);
        
         // Inicializa la matriz de ladrillos
-        ladrillos = new Ladrillo[5][5];
-        inicializarLadrillos();
+        inicializarLadrillos(6,6);
         
     }
         
@@ -140,15 +140,21 @@ public class MainGame extends BaseGame {
         
     }
     
-    private void inicializarLadrillos() {
+    private void inicializarLadrillos(int columna, int fila) {
         // Inicializa el arreglo de ladrillos
+        this.columna = columna;
+        this.fila = fila;
+        int gap = 2;
+        ladrillos = new Ladrillo[columna][fila];
         for (int i = 0; i < ladrillos.length; i++) {
             for (int j = 0; j < ladrillos[i].length; j++) {
-                int x = j * 100; // Puedes ajustar la posición y dimensiones según tus necesidades
-                int y = i * 40;
-                ladrillos[i][j] = new Ladrillo(40, 100, 3, 3, Color.GREEN); // Puedes ajustar las dimensiones y color
-                ladrillos[i][j].setX(x);
-                ladrillos[i][j].setY(y);
+                ladrillos[i][j] = new Ladrillo(0, 0, 3, 3, Color.GREEN); // Puedes ajustar las dimensiones y color
+                ladrillos[i][j].setLargo(40);
+                ladrillos[i][j].setAncho(1020/columna - gap);
+                ladrillos[i][j].setX( j * ladrillos[i][j].getAncho() + gap);
+                ladrillos[i][j].setY(i * ladrillos[i][j].getLargo() + gap);
+                System.out.println(ladrillos[i][j].getX());
+                   //ladrillos[i][j].getLargo(), ladrillos[i][j].getAncho()
             }
         }
     }
@@ -223,9 +229,9 @@ public class MainGame extends BaseGame {
          // Dibuja los ladrillos
         for (int i = 0; i < ladrillos.length; i++) {
             for (int j = 0; j < ladrillos[i].length; j++) {
+                int gap = 2;
                 g.setColor(ladrillos[i][j].getColor()); // Establece el color del ladrillo
-                g.fillRect(ladrillos[i][j].getX(), ladrillos[i][j].getY(),
-                            ladrillos[i][j].getAncho(), ladrillos[i][j].getLargo());
+                g.fillRect(j * ladrillos[i][j].getAncho() + gap * j , i * ladrillos[i][j].getLargo() + gap * i, ladrillos[i][j].getAncho() , ladrillos[i][j].getLargo()); 
             }
         }
         
