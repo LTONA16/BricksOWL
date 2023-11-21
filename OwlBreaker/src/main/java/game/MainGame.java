@@ -20,7 +20,7 @@ public class MainGame extends BaseGame {
     private final int DISPLAY_WIDTH = 1024;
     private final int DISPLAY_HEIGHT = 640;
     private int vidaJugador = 3;
-    private Pelota pelota= new Pelota(5,5,150,150,15,0,5,Color.WHITE);
+    private Pelota pelota= new Pelota(5,5,150,150,15,2,5,Color.WHITE);
     private Paleta paleta = new Paleta(25,150,0,0,0,Color.WHITE);
     private Ladrillo ladrillo;
     private int[][] ladrillos;
@@ -83,31 +83,25 @@ public class MainGame extends BaseGame {
                 movePaletaRight();
             }
         }
-        
-<<<<<<< HEAD
+
 
          pelota.mover();
          
         verificarColision(1024, 640, paleta);
 
-=======
+
         pelota.setX(pelota.getX()+pelota.getVelX());
         pelota.setY(pelota.getY()+pelota.getVelY());
-        
-            if ( pelota.getX() < 0) {
-                pelota.setVelX(-pelota.getVelX());
-            }
+
+        if (pelota.getX() - pelota.getRadio() <= 0 || pelota.getX() + pelota.getRadio() >= DISPLAY_WIDTH) {
+            pelota.setVelX(-pelota.getVelX()); // Invertir la dirección en el eje X
+        }
+
+        if (pelota.getY() - pelota.getRadio() <= 0 || pelota.getY() + pelota.getRadio() >= DISPLAY_HEIGHT) {
+            pelota.setVelY(-pelota.getVelY()); // Invertir la dirección en el eje Y
+        }
             
-            if ( pelota.getY() < 0) {
-                pelota.setVelY(-pelota.getVelY());
-            }
-            
-            if ( pelota.getX() > 635) {
-                pelota.setVelX(-pelota.getVelX());
-            }
-            
-            
->>>>>>> 90d649e596279b3da4cdfa585540e962a4f9fcef
+
         render();
     }
 
@@ -163,11 +157,7 @@ public class MainGame extends BaseGame {
     public void ganaste(){
         
     }
-    
-<<<<<<< HEAD
 
-=======
->>>>>>> 90d649e596279b3da4cdfa585540e962a4f9fcef
     private void movePaletaLeft() {
         paleta.setX(paleta.getX() - 5); // Puedes ajustar la cantidad de movimiento según tus necesidades
     }
