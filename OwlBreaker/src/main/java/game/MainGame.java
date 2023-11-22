@@ -23,6 +23,7 @@ public class MainGame extends BaseGame {
     private Pelota pelota= new Pelota(5,5,150,150,15,2,5,Color.WHITE);
     private Paleta paleta = new Paleta(25,150,0,0,0,Color.WHITE);
     private Ladrillo[][] ladrillos;
+    private int columna, fila=0;
             
     /**
      * Incluya una descripción de su juego.
@@ -52,8 +53,7 @@ public class MainGame extends BaseGame {
         pelota.setVelY(2);
        
         // Inicializa la matriz de ladrillos
-        ladrillos = new Ladrillo[5][5];
-        inicializarLadrillos();
+        inicializarLadrillos(6,6);
         
     }
         
@@ -89,13 +89,29 @@ public class MainGame extends BaseGame {
          pelota.mover();
          
         verificarColision(1024, 640, paleta);
-
-
+        
         pelota.setX(pelota.getX()+pelota.getVelX());
         pelota.setY(pelota.getY()+pelota.getVelY());
         colPelota();
+//        colPelotaBloque();
+        verificarColisionLadrillos();
 
         render();
+    }
+    
+private void verificarColisionLadrillos() {
+        // Verificar colisiones con los ladrillos
+        for (int i = 0; i < ladrillos.length; i++) {
+            for (int j = 0; j < ladrillos[i].length; j++) {
+                if (intersecta(ladrillos[i][j])) {
+                    // Colisión con un ladrillo
+                    ladrillos[i][j] = null;  // Eliminar el ladrillo
+
+                    // Aquí puedes realizar más acciones si es necesario
+                    invertirDireccion(); // Invierte la dirección de la pelota
+                }
+            }
+        }
     }
 
     
@@ -116,6 +132,15 @@ public class MainGame extends BaseGame {
     
     //Colisión con el bloque
     public void colBloque(){
+          for (int i = 0; i < ladrillos.length; i++) {
+        for (int j = 0; j < ladrillos[i].length; j++) {
+            if (ladrillos[i][j].estaActivo() && intersecta(ladrillos[i][j])) {
+                // Colisión con un ladrillo
+                ladrillos[i][j].setActivo(false);  // Desactivar el ladrillo
+                invertirDireccion(); // Invierte la dirección de la pelota
+            }
+        }
+    }
         
     }
     
@@ -130,29 +155,64 @@ public class MainGame extends BaseGame {
         }
         
     }
-    
-    //Colisión con de la pelota con el Bloque, resta vidas al bloque
-    public void colPelotaBloque(){
-        
-    }
+ 
+
     
     public void pintarLadrillos(int fila, int columna){
         
     }
     
-    private void inicializarLadrillos() {
+    private void inicializarLadrillos(int columna, int fila) {
         // Inicializa el arreglo de ladrillos
+        this.columna = columna;
+        this.fila = fila;
+        int gap = 2;
+        ladrillos = new Ladrillo[columna][fila];
         for (int i = 0; i < ladrillos.length; i++) {
             for (int j = 0; j < ladrillos[i].length; j++) {
-                int x = j * 100; // Puedes ajustar la posición y dimensiones según tus necesidades
-                int y = i * 40;
-                ladrillos[i][j] = new Ladrillo(40, 100, 3, 3, Color.GREEN); // Puedes ajustar las dimensiones y color
-                ladrillos[i][j].setX(x);
-                ladrillos[i][j].setY(y);
+                ladrillos[i][j] = new Ladrillo(0, 0, 3, 3, Color.GREEN); // Puedes ajustar las dimensiones y color
+                ladrillos[i][j].setLargo(40);
+                ladrillos[i][j].setAncho(1020/columna - gap);
+                ladrillos[i][j].setX(3 + j * ladrillos[i][j].getAncho() + gap);
+                ladrillos[i][j].setY(i * ladrillos[i][j].getLargo() + gap);
+                System.out.println(ladrillos[i][j].getX());
+                   //ladrillos[i][j].getLargo(), ladrillos[i][j].getAncho()
             }
         }
     }
     
+    private void invertirDireccion() {
+        pelota.setVelX(-pelota.getVelX());
+        pelota.setVelY(-pelota.getVelY());
+    }
+ 
+    private boolean intersecta(Ladrillo ladrillo) {
+        if (ladrillo == null) {
+            return false;
+        }
+
+        int distanciaX = Math.abs(pelota.getX() - ladrillo.getX() - ladrillo.getAncho() / 2);
+        int distanciaY = Math.abs(pelota.getY() - ladrillo.getY() - ladrillo.getLargo() / 2);
+        if (distanciaX > (ladrillo.getAncho() / 2 + pelota.getRadio())) {
+            return false;
+        }
+        if (distanciaY > (ladrillo.getLargo() / 2 + pelota.getRadio())) {
+            return false;
+        }
+
+        if (distanciaX <= (ladrillo.getAncho() / 2)) {
+            return true;
+        }
+        if (distanciaY <= (ladrillo.getLargo() / 2)) {
+            return true;
+        }
+
+        double distanciaEsquina = Math.pow((distanciaX - ladrillo.getAncho() / 2), 2)
+                + Math.pow((distanciaY - ladrillo.getLargo() / 2), 2);
+
+        return (distanciaEsquina <= Math.pow(pelota.getRadio(), 2));
+    }
+
     // Comprueba si existen ladrillos restantes, si no hay ladrillos el jugador gana la partida
     public void ganaste(){
         
@@ -209,25 +269,27 @@ public class MainGame extends BaseGame {
         // TODO: Dibuje los elementos de su aplicación aquí.
         g.setColor(Color.black);
         g.fillRect(1, 1, display.getWidth(), display.getHeight());
-        g.setColor(Color.CYAN);
-        g.fillRect(0, 0, 3, (display.getHeight() ));
-        g.fillRect(0, 0, (display.getWidth() ), 3);
-        g.fillRect(1021, 0, 3, display.getHeight());
-        //g.fillRect(0, 637, display.getWidth(),3 );
        
         g.setColor(Color.WHITE);
         g.fillRect(paleta.getX(), paleta.getY(), paleta.getAncho(), paleta.getLargo());
         g.setColor(Color.WHITE);
         g.fillOval(pelota.getX() - pelota.getRadio(), pelota.getY() - pelota.getRadio(),pelota.getRadio()* 2, pelota.getRadio()* 2);
 
-         // Dibuja los ladrillos
+        // Dibuja los ladrillos
         for (int i = 0; i < ladrillos.length; i++) {
             for (int j = 0; j < ladrillos[i].length; j++) {
-                g.setColor(ladrillos[i][j].getColor()); // Establece el color del ladrillo
-                g.fillRect(ladrillos[i][j].getX(), ladrillos[i][j].getY(),
-                            ladrillos[i][j].getAncho(), ladrillos[i][j].getLargo());
-            }
+                int gap = 2;
+                if (ladrillos[i][j] != null) {
+                    g.setColor(ladrillos[i][j].getColor()); // Establece el color del ladrillo
+                    g.fillRect(3 + j * ladrillos[i][j].getAncho() + gap * j, i * ladrillos[i][j].getLargo() + gap * i, ladrillos[i][j].getAncho(), ladrillos[i][j].getLargo());
+                }
+    }
         }
+        g.setColor(Color.CYAN);
+        g.fillRect(0, 0, 3, (display.getHeight() ));
+        g.fillRect(0, 0, (display.getWidth() ), 3);
+        g.fillRect(1021, 0, 3, display.getHeight());
+        //g.fillRect(0, 637, display.getWidth(),3 );
         
         // Actualizamos los gráficos y los mostramos en la ventana.
         display.renderGraphics();

@@ -17,6 +17,7 @@ public class Ladrillo {
     private Color colorLadrillo;
     private int x;
     private int y;
+    private boolean activo;
 
 
     
@@ -85,6 +86,17 @@ public class Ladrillo {
         this.y = y;
     }
     
+     public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
+    
+    public boolean estaActivo(){
+        return activo;
+    }
     
     
 }
