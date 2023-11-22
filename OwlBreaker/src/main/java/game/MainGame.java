@@ -155,8 +155,20 @@ private void verificarColisionLadrillos() {
         }
         
     }
+<<<<<<< HEAD
  
 
+=======
+    
+    //Colisión con de la pelota con el Bloque, resta vidas al bloque
+    public void colPelotaBloque(){
+//        if (pelota.getX() + 19 <= ladrillos[i][j].getX() || pelota.getX() + 1 >= ladrillos[i][j].getX() + ladrillos[i][j].getAncho()) {
+//            pelota.setVelX(-pelota.getVelX());
+//        } else {
+//            pelota.setVelY(-pelota.getVelY());
+//        }
+    }
+>>>>>>> 85a157762f16d206a8d78b7c2fce5f1f237026fd
     
     public void pintarLadrillos(int fila, int columna){
         
@@ -279,11 +291,17 @@ private void verificarColisionLadrillos() {
         for (int i = 0; i < ladrillos.length; i++) {
             for (int j = 0; j < ladrillos[i].length; j++) {
                 int gap = 2;
+<<<<<<< HEAD
                 if (ladrillos[i][j] != null) {
                     g.setColor(ladrillos[i][j].getColor()); // Establece el color del ladrillo
                     g.fillRect(3 + j * ladrillos[i][j].getAncho() + gap * j, i * ladrillos[i][j].getLargo() + gap * i, ladrillos[i][j].getAncho(), ladrillos[i][j].getLargo());
                 }
     }
+=======
+                g.setColor(ladrillos[i][j].getColor()); // Establece el color del ladrillo
+                g.fillRect(3 + j * ladrillos[i][j].getAncho() + gap * j , i * ladrillos[i][j].getLargo() + gap * i, ladrillos[i][j].getAncho() , ladrillos[i][j].getLargo()); 
+            }
+>>>>>>> 85a157762f16d206a8d78b7c2fce5f1f237026fd
         }
         g.setColor(Color.CYAN);
         g.fillRect(0, 0, 3, (display.getHeight() ));
