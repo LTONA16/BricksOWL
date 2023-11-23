@@ -96,6 +96,10 @@ public class MainGame extends BaseGame {
         colPelota();
 //        colPelotaBloque();
         verificarColisionLadrillos();
+    
+        // Verificar si el jugador ha ganado
+        ganaste();
+
 
         render();
     }
@@ -201,7 +205,34 @@ private void verificarColisionLadrillos() {
     }
 
     // Comprueba si existen ladrillos restantes, si no hay ladrillos el jugador gana la partida
-    public void ganaste(){
+    public void ganaste() {
+        boolean todosLadrillosDestruidos = true;
+
+        // Verifica si todos los ladrillos han sido destruidos
+        for (int i = 0; i < ladrillos.length; i++) {
+            for (int j = 0; j < ladrillos[i].length; j++) {
+                if (ladrillos[i][j] != null) {
+                    todosLadrillosDestruidos = false;
+                    break;
+
+                  
+            }
+        }
+            
+            // Si todos los ladrillos han sido destruidos, muestra el mensaje de ganador y cierra el juego
+            if (todosLadrillosDestruidos) {
+                JOptionPane.showMessageDialog(null, "¡Ganaste!");
+                System.exit(0); // Cierra la aplicación
+            }
+    
+        
+    }
+
+    // Si todos los ladrillos han sido destruidos, muestra el mensaje de ganador
+    if (todosLadrillosDestruidos) {
+        JOptionPane.showMessageDialog(null, "¡Ganaste!");
+        // Aquí puedes realizar otras acciones o reiniciar el juego si lo deseas
+    }
         
     }
 
