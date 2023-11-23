@@ -21,7 +21,7 @@ public class MainGame extends BaseGame {
     private final int DISPLAY_WIDTH = 1024;
     private final int DISPLAY_HEIGHT = 640;
     private int vidaJugador = 3;
-    private Pelota pelota= new Pelota(5,5,150,150,15,2,5,Color.WHITE);
+    private Pelota pelota= new Pelota(5,5,150,150,15,1,-5,Color.WHITE);
     private Paleta paleta = new Paleta(25,150,0,0,0,Color.WHITE);
     private Ladrillo[][] ladrillos;
     private int columna, fila=0;
@@ -49,9 +49,9 @@ public class MainGame extends BaseGame {
         Display display = Display.getInstance();
         paleta.setX(display.getWidth()/2);
         paleta.setY(600);
-        pelota.setX(615);
-        pelota.setY(615);
-        pelota.setVelY(2);
+        pelota.setX(450);
+        pelota.setY(550);
+        pelota.setVelY(-2);
        
         // Inicializa la matriz de ladrillos
         inicializarLadrillos(6,6);
@@ -132,25 +132,17 @@ private void verificarColisionLadrillos() {
     
     
     //Metodos
-    
-  
-    
+   
     //Colisión de la pelota
     public void colPelota(){
         if (pelota.getX() - pelota.getRadio() <= 0 || pelota.getX() + pelota.getRadio() >= DISPLAY_WIDTH) {
             pelota.setVelX(-pelota.getVelX()); // Invertir la dirección en el eje X
         }
 
-        if (pelota.getY() - pelota.getRadio() <= 0 || pelota.getY() + pelota.getRadio() >= DISPLAY_HEIGHT) {
+        if (pelota.getY() - pelota.getRadio() <= 0) {
             pelota.setVelY(-pelota.getVelY()); // Invertir la dirección en el eje Y
         }
-        
-    }
- 
-
-    
-    public void pintarLadrillos(int fila, int columna){
-        
+        //pelota.getY() + pelota.getRadio() >= DISPLAY_HEIGHT
     }
     
     private void inicializarLadrillos(int columna, int fila) {
@@ -166,7 +158,7 @@ private void verificarColisionLadrillos() {
                 ladrillos[i][j].setAncho(1020/columna - gap);
                 ladrillos[i][j].setX(3 + j * ladrillos[i][j].getAncho() + gap);
                 ladrillos[i][j].setY(i * ladrillos[i][j].getLargo() + gap);
-                System.out.println(ladrillos[i][j].getX());
+                //System.out.println(ladrillos[i][j].getX());
                    //ladrillos[i][j].getLargo(), ladrillos[i][j].getAncho()
             }
         }
@@ -224,7 +216,12 @@ private void verificarColisionLadrillos() {
                 JOptionPane.showMessageDialog(null, "¡Ganaste!");
                 System.exit(0); // Cierra la aplicación
             }
-    
+            
+            if(pelota.getY() - pelota.getRadio() >= DISPLAY_HEIGHT){
+                 JOptionPane.showMessageDialog(null, "¡Has perdido!, intentalo de nuevo.");
+                 System.exit(0); // Cierra la aplicación
+
+            }
         
     }
 
@@ -237,11 +234,11 @@ private void verificarColisionLadrillos() {
     }
 
     private void movePaletaLeft() {
-        paleta.setX(paleta.getX() - 5); // Puedes ajustar la cantidad de movimiento según tus necesidades
+        paleta.setX(paleta.getX() - 7); // Puedes ajustar la cantidad de movimiento según tus necesidades
     }
     
     private void movePaletaRight() {
-        paleta.setX(paleta.getX() + 5); // Puedes ajustar la cantidad de movimiento según tus necesidades
+        paleta.setX(paleta.getX() + 7); // Puedes ajustar la cantidad de movimiento según tus necesidades
     }
 
     public void keyTyped(KeyEvent e) {
@@ -291,8 +288,10 @@ private void verificarColisionLadrillos() {
         g.setColor(Color.black);
         g.fillRect(1, 1, display.getWidth(), display.getHeight());
        
-        g.setColor(Color.WHITE);
+        g.setColor(Color.CYAN);
         g.fillRect(paleta.getX(), paleta.getY(), paleta.getAncho(), paleta.getLargo());
+        g.setColor(Color.WHITE);
+        g.drawRect(paleta.getX(), paleta.getY(), paleta.getAncho(), paleta.getLargo());
         g.setColor(Color.WHITE);
         g.fillOval(pelota.getX() - pelota.getRadio(), pelota.getY() - pelota.getRadio(),pelota.getRadio()* 2, pelota.getRadio()* 2);
 
