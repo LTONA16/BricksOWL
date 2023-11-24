@@ -21,13 +21,14 @@ public class GameplayScene extends BaseScene {
     private Text sceneTitle;        // Texto que muestra el título de la escena.
     private final int DISPLAY_WIDTH = 1024;
     private final int DISPLAY_HEIGHT = 640;
-    private int vidaJugador = 3;
     private Pelota pelota = new Pelota(5,5,150,150,15,0,0,Color.WHITE);
     private Paleta paleta = new Paleta(25,150,0,0,0,Color.WHITE);
     private Ladrillo[][] ladrillos;
     private int columna, fila=0;
     private boolean play = false;
     Random random = new Random();
+    int min = -1;
+    int max = 1;
 
     /**
      * Maneja la inicialización de los objetos en la escena.
@@ -109,7 +110,8 @@ public class GameplayScene extends BaseScene {
     }
     
     private int numAzar(){
-        int randomNumber = random.nextInt(5);
+        int rango = max - min + 1;
+        int randomNumber = random.nextInt(rango) + min;
         return randomNumber;
     }
     
@@ -120,25 +122,27 @@ public class GameplayScene extends BaseScene {
                 if (intersecta(ladrillos[i][j])) {
                     // Colisión con un ladrillo
                     ladrillos[i][j] = null;  // Eliminar el ladrillo
-
+                    pelota.setVelY(pelota.getVelY() + numAzar());
+                    pelota.setVelX(pelota.getVelX() + numAzar());
+                    if(pelota.getVelX() == 0){
+                        pelota.setVelX(1);
+                    }
+                    if(pelota.getVelX() > 2){
+                    pelota.setVelX(2);
+                    }
+                    if(pelota.getVelY() == 0){
+                        pelota.setVelY(1);
+                    }
+                    if(pelota.getVelY() > 2){
+                    pelota.setVelY(2);
+                    }
+                    
                     // Aquí puedes realizar más acciones si es necesario
                     invertirDireccion(); // Invierte la dirección de la pelota
                 }
             }
         }
     }
-
-    
-    //Regresa las vidas actuales
-    public int getVidaJugador(){
-        return vidaJugador;
-    }
-
-    //Actualiza las vidas a el valor deseado
-    public void setVidaJugador(int nVidas){
-        vidaJugador = nVidas;
-    }
-    
     
     //Metodos
    
@@ -155,7 +159,7 @@ public class GameplayScene extends BaseScene {
     }
     
     public void iniciarPelota(){
-        pelota.setVelY(-2);
+        pelota.setVelY(-1);
         pelota.setVelX(1);
     }
     
@@ -238,11 +242,15 @@ public class GameplayScene extends BaseScene {
     }
 
     private void movePaletaLeft() {
-        paleta.setX(paleta.getX() - 6); // Puedes ajustar la cantidad de movimiento según tus necesidades
+        if(play){
+            paleta.setX(paleta.getX() - 9); // Puedes ajustar la cantidad de movimiento según tus necesidades
+        }
     }
     
     private void movePaletaRight() {
-        paleta.setX(paleta.getX() + 6); // Puedes ajustar la cantidad de movimiento según tus necesidades
+        if(play){
+            paleta.setX(paleta.getX() + 9); // Puedes ajustar la cantidad de movimiento según tus necesidades
+        }
     }
 
     public void keyTyped(KeyEvent e) {
@@ -254,6 +262,7 @@ public class GameplayScene extends BaseScene {
     }
     
    public void verificarColision(int anchoPantalla, int altoPantalla, Paleta paleta) {
+    
     // Colision con las paredes
     if (pelota.getX() - pelota.getRadio() <= 0 || pelota.getX() + pelota.getRadio() >= anchoPantalla) {
         pelota.setVelX(-pelota.getVelX()); // Invertir la dirección en el eje X
