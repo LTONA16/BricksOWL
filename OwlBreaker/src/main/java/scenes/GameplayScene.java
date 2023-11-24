@@ -65,23 +65,36 @@ public class GameplayScene extends BaseScene {
      * Maneja la lógica de los objetos en la escena.
      */
     @Override
+<<<<<<< HEAD
 
+=======
+>>>>>>> b4a4130fcd2c65e26d5d50e44c6598a5c47cca5a
     public void update() {
         if (Input.getInstance().isPressed(KeyEvent.VK_LEFT)) {
             SceneManager.getInstance().loadScene(new MenuScene());
         }
+<<<<<<< HEAD
 
         // Mover la paleta a la izquierda si se presiona la tecla A
         if (Input.getInstance().isPressed(KeyEvent.VK_A)) {
             if (paleta.getX() < 4) {
                 paleta.setX(4);
             } else {
+=======
+        
+        // Mover la paleta a la izquierda si se presiona la tecla A
+        if (Input.getInstance().isPressed(KeyEvent.VK_A)) {
+            if(paleta.getX() < 4){
+                paleta.setX(4);
+            }else{
+>>>>>>> b4a4130fcd2c65e26d5d50e44c6598a5c47cca5a
                 movePaletaLeft();
             }
         }
 
         // Mover la paleta a la derecha si se presiona la tecla D
         if (Input.getInstance().isPressed(KeyEvent.VK_D)) {
+<<<<<<< HEAD
             if (paleta.getX() >= 871) {
                 paleta.setX(871);
             } else {
@@ -90,12 +103,23 @@ public class GameplayScene extends BaseScene {
         }
 
         if (!play) {
+=======
+            if(paleta.getX() >= 871){
+                paleta.setX(871);
+            }else{
+                movePaletaRight();
+            }
+        }
+        
+        if(!play){
+>>>>>>> b4a4130fcd2c65e26d5d50e44c6598a5c47cca5a
             if (Input.getInstance().isPressed(KeyEvent.VK_SPACE)) {
                 sceneTitle.setText("");
                 play = true;
                 iniciarPelota();
             }
         }
+<<<<<<< HEAD
 
         // Verificar colisión con la paleta antes de actualizar la posición de la pelota
         verificarColision(1024, 640, paleta);
@@ -114,6 +138,21 @@ public class GameplayScene extends BaseScene {
         ganaste();
     }
 
+=======
+        pelota.mover();
+        verificarColision(1024, 640, paleta);
+        
+        pelota.setX(pelota.getX()+pelota.getVelX());
+        pelota.setY(pelota.getY()+pelota.getVelY());
+        colPelota();
+//        colPelotaBloque();
+        verificarColisionLadrillos();
+    
+        // Verificar si el jugador ha ganado
+        ganaste();
+        
+    }
+>>>>>>> b4a4130fcd2c65e26d5d50e44c6598a5c47cca5a
     
     private int numAzar(){
         int rango = max - min + 1;
@@ -153,17 +192,29 @@ public class GameplayScene extends BaseScene {
     //Metodos
    
     //Colisión de la pelota
+<<<<<<< HEAD
 public void colPelota() {
+=======
+    public void colPelota(){
+>>>>>>> b4a4130fcd2c65e26d5d50e44c6598a5c47cca5a
         if (pelota.getX() - pelota.getRadio() <= 0 || pelota.getX() + pelota.getRadio() >= DISPLAY_WIDTH) {
             pelota.setVelX(-pelota.getVelX()); // Invertir la dirección en el eje X
         }
 
+<<<<<<< HEAD
         if (pelota.getY() - pelota.getRadio() <= 0 || pelota.getY() + pelota.getRadio() >= DISPLAY_HEIGHT) {
             pelota.setVelY(-pelota.getVelY()); // Invertir la dirección en el eje Y
         }
     }
 
 
+=======
+        if (pelota.getY() - pelota.getRadio() <= 0) {
+            pelota.setVelY(-pelota.getVelY()); // Invertir la dirección en el eje Y
+        }
+        //pelota.getY() + pelota.getRadio() >= DISPLAY_HEIGHT
+    }
+>>>>>>> b4a4130fcd2c65e26d5d50e44c6598a5c47cca5a
     
     public void iniciarPelota(){
         pelota.setVelY(-1);
@@ -268,12 +319,19 @@ public void colPelota() {
         // No es necesario implementar este método, pero la interfaz lo exige
     }
     
+<<<<<<< HEAD
   public void verificarColision(int anchoPantalla, int altoPantalla, Paleta paleta) {
     // Colisión con las paredes
+=======
+   public void verificarColision(int anchoPantalla, int altoPantalla, Paleta paleta) {
+    
+    // Colision con las paredes
+>>>>>>> b4a4130fcd2c65e26d5d50e44c6598a5c47cca5a
     if (pelota.getX() - pelota.getRadio() <= 0 || pelota.getX() + pelota.getRadio() >= anchoPantalla) {
         pelota.setVelX(-pelota.getVelX()); // Invertir la dirección en el eje X
     }
 
+<<<<<<< HEAD
     // Colisión con la parte inferior de la pantalla
     if (pelota.getY() + pelota.getRadio() >= altoPantalla) {
         // Aquí puedes realizar acciones específicas, como cargar la escena de fin de juego
@@ -297,6 +355,15 @@ public void colPelota() {
     }
   }
 
+=======
+    // Colision con la paleta
+    if (pelota.getY() + pelota.getRadio() >= paleta.getY() &&
+        pelota.getY() + pelota.getRadio() <= paleta.getY() + paleta.getLargo() &&
+        pelota.getX() >= paleta.getX() && pelota.getX() <= paleta.getX() + paleta.getAncho()) {
+        pelota.setVelY(-pelota.getVelY()); // Invertir la dirección en el eje Y
+    }
+   }
+>>>>>>> b4a4130fcd2c65e26d5d50e44c6598a5c47cca5a
 
     /**
      * Maneja la lógica de renderizado de los objetos en la escena.

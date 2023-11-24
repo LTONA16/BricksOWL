@@ -1,0 +1,120 @@
+@startuml OwlBreaker
+
+class main.MainWindow {
+    -ContenidoActual:JPanel
+    __getters__
+    +getContenidoActual():JPanel
+    __setters__
+    +setContenidoActual():JPanel
+    __metodos__
+}
+
+class views.Start extends main.JPanel {
+    -mainWindow: MainWindow 
+    __metodos__
+    + MainScreen(mainWindow,MainWindow):
+    - btn_jugarActionPerformed(evt:ActionEvent): void
+}
+
+class views.Gameplay extends main.JPanel {
+    -mainWindow: MainWindow 
+    __metodos__
+    + GameplayScreen(mainWindow,MainWindow):
+    - mov_Paddle(evt:keyPressed): void
+    - actualizarUI(): void
+}
+
+class views.EndGame extends main.JPanel {
+    -mainWindow: MainWindow 
+    __metodos__
+    + EndGameScreen(mainWindow,MainWindow):
+    - btn_jugarNuevoActionPerformed(evt:ActionEvent): void
+}
+
+class models.Ladrillo {
+    -largo:int
+    -ancho:int
+    -vida:int
+    -vidaMax: int = 3
+    -color:Color
+    __getters__
+    +getLargo():int
+    +getColor():int
+    +getVida():int
+    +getVidaMax():int
+    __setters__
+    +setAncho():int
+    +setVida():int
+    +setVidaMax():int
+    +setColor():int
+}
+
+class models.Paddle {
+    -largo:int
+    -ancho:int
+    -X:int
+    -Y:int
+    -vel:int
+    __getters__
+    +getVel():int
+    +getX():int
+    +getY():int
+    __setters__
+    +setVel():int
+    +setX():int
+    +setY():int
+}
+
+class models.Pelota {
+    -velX:int
+    -velY:int
+    -X:int
+    -Y:int
+    -radio:int
+    -color:Color
+    __getters__
+    +getVelX():int
+    +getVelY():int
+    +getX():int
+    +getY():int
+    __setters__
+    +setVelX():int
+    +setVelY():int
+    +setX():int
+    +setY():int
+    __metodos__
+    +hit():void
+}
+
+class controllers.EnJuego {
+    -vidas:int
+    -pelota:Pelota
+    -paddle:Paddle
+    -ladrillos[][]:Ladrillo
+    __getters__
+    +getVidas():int
+    __setters__
+    +setVidas():int
+    __metodos__
+    + colBloque():void
+    + colPelota():void
+    + colPelotaBloque():void
+    + generarLadrillos():void
+    + pintarComponent():void
+    + ganaste():void
+}
+
+enum enum.pantallas{
+    Start,
+    Gameplay,
+    EndGame
+}
+
+main.MainWindow -- main.JPanel
+models.Ladrillo -- controllers.EnJuego
+models.Paddle -- controllers.EnJuego
+models.Pelota -- controllers.EnJuego
+controllers.EnJuego - main.MainWindow
+enum.pantallas -- main.MainWindow
+
+@enduml OwlBreaker
