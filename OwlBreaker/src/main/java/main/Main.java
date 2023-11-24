@@ -18,10 +18,10 @@ public class Main {
     public static void main(String[] args) {
 
         // Creamos un objeto de tipo `MainGame`.
-        BaseGame game = new MainGame();
+        BaseGame OwlBreaker = new MainGame();
 
         // Ejecutamos el juego.
-        game.run();
+        OwlBreaker.run();
     }
 
 }
